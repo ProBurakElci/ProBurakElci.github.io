@@ -14,6 +14,7 @@ a tag and this page does the routing:
 
 | Link | Goes to |
 |---|---|
+| `proburakelci.github.io/?go=code` | the code editor |
 | `proburakelci.github.io/?go=life` | your life in weeks |
 | `proburakelci.github.io/?go=reflex` | the reaction test |
 | `proburakelci.github.io/?go=name` | your name as a pattern |

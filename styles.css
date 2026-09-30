@@ -149,6 +149,16 @@ h1 {
   border-radius: 50%;
   background: #0d1626;
 }
+.card-icon[data-icon="code"] {
+  background: #0d1626;
+  color: var(--accent);
+  font-family: Consolas, monospace;
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+.card-icon[data-icon="code"]::after { content: "</>"; }
+
 .card-icon[data-icon="algo"] {
   background:
     linear-gradient(to top, var(--violet) 30%, transparent 30%) 0 0 / 25% 100% no-repeat,
