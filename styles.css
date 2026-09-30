@@ -201,3 +201,29 @@ footer {
   .card { transition: none; }
   .card:hover { transform: none; }
 }
+
+/* the two install cards */
+.card-icon[data-icon="desktop"] {
+  background: #0d1626;
+  border: 1px solid var(--line);
+}
+.card-icon[data-icon="desktop"]::after {
+  content: "";
+  position: absolute;
+  inset: 11px 8px 14px;
+  border-radius: 3px;
+  background: linear-gradient(160deg, var(--accent), #0d1626 70%);
+  box-shadow: 0 7px 0 -4px var(--line);
+}
+
+.card-icon[data-icon="phone"] {
+  background: #0d1626;
+  border: 1px solid var(--line);
+}
+.card-icon[data-icon="phone"]::after {
+  content: "";
+  position: absolute;
+  inset: 7px 14px;
+  border-radius: 5px;
+  background: linear-gradient(160deg, var(--violet), #0d1626 70%);
+}
