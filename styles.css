@@ -1,14 +1,60 @@
+/*
+ * The look.
+ *
+ * The same language as the editor these pages link to: macOS chrome, SF
+ * fonts, the system blue, hairline separators, squircle icons, and the
+ * grouped lists Settings is built out of.
+ *
+ * Every colour is a token defined twice - once dark, once light - and nothing
+ * below the top of this file names a colour directly, so the two appearances
+ * cannot drift apart. It follows the system, the way a Mac app does.
+ */
+
 :root {
-  --bg: #070c17;
-  --panel: #101a2c;
-  --panel-hover: #142238;
-  --line: #1e2b45;
-  --text: #e9eefa;
-  --muted: #93a2bd;
-  --accent: #38bdf8;
-  --accent-2: #f97316;
-  --violet: #a78bfa;
-  --green: #34d399;
+  --bg: #1c1c1e;
+  --card: #2c2c2e;
+  --card-hover: #3a3a3c;
+  --line: #38383a;
+  --text: #f2f2f7;
+  --muted: #98989f;
+  --faint: #6c6c70;
+  --accent: #0a84ff;
+  --accent-quiet: rgba(10, 132, 255, 0.16);
+  --shadow: rgba(0, 0, 0, 0.5);
+
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --violet: #bf5af2;
+  --cyan: #64d2ff;
+
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI Variable Text", "Segoe UI", system-ui, "Helvetica Neue", sans-serif;
+  --code-font: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
+    "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --bg: #f2f2f7;
+    --card: #ffffff;
+    --card-hover: #fbfbfd;
+    --line: #d9d9de;
+    --text: #1d1d1f;
+    --muted: #6e6e73;
+    --faint: #a6a6ab;
+    --accent: #007aff;
+    --accent-quiet: rgba(0, 122, 255, 0.1);
+    --shadow: rgba(0, 0, 0, 0.09);
+
+    --green: #248a3d;
+    --orange: #c93400;
+    --violet: #8944ab;
+    --cyan: #0071a4;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -17,64 +63,79 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
-  background:
-    radial-gradient(760px 420px at 80% -6%, rgba(56, 189, 248, 0.18), transparent 62%),
-    radial-gradient(640px 420px at 6% 102%, rgba(167, 139, 250, 0.16), transparent 62%),
-    linear-gradient(170deg, #0b1220, var(--bg));
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  font-family: var(--ui-font);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
 }
 
-main { max-width: 560px; margin: 0 auto; padding: 40px 20px 48px; }
+main { max-width: 540px; margin: 0 auto; padding: 54px 20px 52px; }
 
 /* ---------- header ---------- */
 
-.top { text-align: center; margin-bottom: 34px; }
+.top { text-align: center; margin-bottom: 40px; }
 
+/* the squircle Apple draws every app icon in */
 .avatar {
-  width: 82px;
-  height: 82px;
-  margin: 0 auto 16px;
-  border-radius: 50%;
-  background: conic-gradient(var(--accent), var(--violet), var(--accent-2), var(--green), var(--accent));
-  box-shadow: 0 0 38px rgba(56, 189, 248, 0.28);
-  position: relative;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, var(--accent), var(--violet));
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 26px var(--shadow);
 }
 .avatar::after {
-  content: "";
-  position: absolute;
-  inset: 11px;
-  border-radius: 50%;
-  background: var(--bg);
+  content: "</>";
+  font-family: var(--code-font);
+  font-size: 21px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 h1 {
-  font-size: clamp(26px, 6vw, 34px);
+  font-size: clamp(27px, 6vw, 33px);
+  font-weight: 700;
+  /* Apple tightens large type */
+  letter-spacing: -0.021em;
   margin: 0 0 10px;
-  letter-spacing: -0.5px;
 }
 
 .tagline {
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.62;
+  font-size: 15.5px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
   margin: 0 auto;
-  max-width: 420px;
+  max-width: 400px;
 }
 
 /* ---------- groups ---------- */
 
-.group { margin-bottom: 34px; }
+.group { margin-bottom: 36px; }
 
+/*
+ * A grouped-list header, the way Settings does it: small, quiet, and sitting
+ * just above its own rows rather than floating between them.
+ */
 .group h2 {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  margin: 0 0 4px;
+  margin: 0 0 3px;
+  padding-left: 4px;
 }
-.group-note { color: #64748b; font-size: 13px; margin: 0 0 14px; }
+.group-note {
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0 0 14px;
+  padding-left: 4px;
+}
 
 /* ---------- cards ---------- */
 
@@ -82,35 +143,37 @@ h1 {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--panel);
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 10px;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 9px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.12s ease, border-color 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 1px 2px var(--shadow);
+  transition: background-color 0.15s ease, transform 0.12s ease;
 }
-.card:hover {
-  background: var(--panel-hover);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
+.card:hover { background: var(--card-hover); transform: translateY(-1px); }
 .card:active { transform: translateY(0); }
+.card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-quiet), 0 0 0 1px var(--accent);
+}
 
-.card-body { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
-.card-body b { font-size: 16.5px; }
-.card-body span { color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.card-body { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.card-body b { font-size: 16px; font-weight: 600; letter-spacing: -0.012em; }
+.card-body span { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+
 .card-body code {
   align-self: flex-start;
-  background: #0a1120;
+  background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 6px;
   padding: 3px 8px;
+  margin: 3px 0 4px;
+  font-family: var(--code-font);
   font-size: 12.5px;
   color: var(--accent);
-  font-family: Consolas, "Cascadia Mono", monospace;
-  margin: 2px 0 4px;
 }
 .card-body span code {
   display: inline;
@@ -122,108 +185,133 @@ h1 {
   font-size: 13px;
 }
 
-.card-go { color: var(--muted); font-size: 20px; flex-shrink: 0; }
-.card:hover .card-go { color: var(--accent); }
+/* the chevron every tappable row on iOS ends with */
+.card-go { color: var(--faint); font-size: 17px; flex-shrink: 0; }
+.card:hover .card-go { color: var(--muted); }
 
-/* the little drawings, made of gradients so nothing has to load */
+/* ---------- the little drawings, made of gradients so nothing has to load ---------- */
+
 .card-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
-}
-.card-icon[data-icon="life"] {
-  background:
-    repeating-linear-gradient(90deg, var(--accent) 0 5px, transparent 5px 8px),
-    repeating-linear-gradient(0deg, #0d1626 0 5px, transparent 5px 8px),
-    #0d1626;
-}
-.card-icon[data-icon="reflex"] { background: radial-gradient(circle at 50% 50%, var(--green) 34%, #0d1626 36%); }
-.card-icon[data-icon="name"] { background: conic-gradient(var(--accent-2), var(--violet), var(--accent), var(--accent-2)); }
-.card-icon[data-icon="name"]::after {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border-radius: 50%;
-  background: #0d1626;
-}
-.card-icon[data-icon="code"] {
-  background: #0d1626;
-  color: var(--accent);
-  font-family: Consolas, monospace;
-  font-size: 17px;
   display: grid;
   place-items: center;
 }
-.card-icon[data-icon="code"]::after { content: "</>"; }
 
+/*
+ * A life in weeks: a grid of filled squares. The horizontal bands are listed
+ * first so they sit on top and cut the vertical stripes into squares - a
+ * grid, not a barcode.
+ */
+.card-icon[data-icon="life"] {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 4px, rgba(0, 0, 0, 0.42) 4px 7px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0 4px, transparent 4px 7px),
+    linear-gradient(160deg, var(--accent), #0060df);
+}
+
+/* a reaction test: the dot you are waiting for */
+.card-icon[data-icon="reflex"] { background: linear-gradient(160deg, var(--green), #1a7f3c); }
+.card-icon[data-icon="reflex"]::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* a name as a pattern: a ring of colour */
+.card-icon[data-icon="name"] {
+  background: conic-gradient(var(--orange), var(--violet), var(--accent), var(--orange));
+}
+.card-icon[data-icon="name"]::after {
+  content: "";
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--card);
+}
+
+/* sorting bars, caught mid-sort */
 .card-icon[data-icon="algo"] {
   background:
-    linear-gradient(to top, var(--violet) 30%, transparent 30%) 0 0 / 25% 100% no-repeat,
-    linear-gradient(to top, var(--accent) 62%, transparent 62%) 33% 0 / 25% 100% no-repeat,
-    linear-gradient(to top, var(--green) 45%, transparent 45%) 66% 0 / 25% 100% no-repeat,
-    linear-gradient(to top, var(--accent-2) 85%, transparent 85%) 99% 0 / 25% 100% no-repeat,
-    #0d1626;
+    linear-gradient(to top, rgba(255, 255, 255, 0.9) 26%, transparent 26%) 8% 0 / 16% 100% no-repeat,
+    linear-gradient(to top, rgba(255, 255, 255, 0.9) 58%, transparent 58%) 36% 0 / 16% 100% no-repeat,
+    linear-gradient(to top, rgba(255, 255, 255, 0.9) 42%, transparent 42%) 64% 0 / 16% 100% no-repeat,
+    linear-gradient(to top, rgba(255, 255, 255, 0.9) 80%, transparent 80%) 92% 0 / 16% 100% no-repeat,
+    linear-gradient(160deg, var(--violet), #6b2fa0);
+}
+
+/* the three codepad builds share one dark slate */
+.card-icon[data-icon="code"],
+.card-icon[data-icon="desktop"],
+.card-icon[data-icon="phone"] {
+  background: linear-gradient(160deg, #3a3a3c, #1c1c1e);
+}
+.card-icon[data-icon="code"]::after {
+  content: "</>";
+  font-family: var(--code-font);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+/* a display on a stand, and a phone */
+.card-icon[data-icon="desktop"]::after {
+  content: "";
+  width: 26px;
+  height: 17px;
+  border-radius: 3px;
+  background: linear-gradient(160deg, #64d2ff, #0a84ff);
+  box-shadow: 0 7px 0 -4px #636366;
+}
+.card-icon[data-icon="phone"]::after {
+  content: "";
+  width: 15px;
+  height: 25px;
+  border-radius: 4px;
+  background: linear-gradient(160deg, var(--violet), #6b2fa0);
 }
 
 .card-code { align-items: flex-start; }
-.card-code .card-go { margin-top: 4px; }
+.card-code .card-go { margin-top: 3px; }
 
 /* ---------- links ---------- */
 
-.links { display: flex; gap: 10px; flex-wrap: wrap; }
+.links { display: flex; gap: 9px; flex-wrap: wrap; }
 .links a {
   flex: 1 1 auto;
   text-align: center;
-  background: var(--panel);
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 13px 16px;
-  color: var(--text);
+  border-radius: 11px;
+  padding: 12px 16px;
+  color: var(--accent);
   text-decoration: none;
   font-size: 14.5px;
-  font-weight: 600;
+  font-weight: 500;
+  box-shadow: 0 1px 2px var(--shadow);
 }
-.links a:hover { border-color: var(--accent); }
+.links a:hover { background: var(--card-hover); }
+.links a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-quiet), 0 0 0 1px var(--accent);
+}
 
 footer {
-  color: #64748b;
+  color: var(--faint);
   font-size: 12.5px;
-  line-height: 1.7;
+  line-height: 1.6;
   text-align: center;
   border-top: 1px solid var(--line);
-  padding-top: 20px;
+  padding-top: 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .card:hover { transform: none; }
-}
-
-/* the two install cards */
-.card-icon[data-icon="desktop"] {
-  background: #0d1626;
-  border: 1px solid var(--line);
-}
-.card-icon[data-icon="desktop"]::after {
-  content: "";
-  position: absolute;
-  inset: 11px 8px 14px;
-  border-radius: 3px;
-  background: linear-gradient(160deg, var(--accent), #0d1626 70%);
-  box-shadow: 0 7px 0 -4px var(--line);
-}
-
-.card-icon[data-icon="phone"] {
-  background: #0d1626;
-  border: 1px solid var(--line);
-}
-.card-icon[data-icon="phone"]::after {
-  content: "";
-  position: absolute;
-  inset: 7px 14px;
-  border-radius: 5px;
-  background: linear-gradient(160deg, var(--violet), #0d1626 70%);
 }
